@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity
 {
 
     private TextView LCDScreen;
+    private TextView logText;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         LCDScreen =(TextView)findViewById(R.id.LCDTextView);
+        logText =(TextView)findViewById(R.id.logText);
+
         LCDScreen.setText("");
 
 
@@ -30,7 +33,12 @@ public class MainActivity extends AppCompatActivity
     }
     public void pushNumber(View view)
     {
+
         String LCDCurrentString = LCDScreen.getText().toString();
+        if(LCDCurrentString.equals("Error"))
+        {
+            return;
+        }
         Button pushedButton = (Button) findViewById(view.getId());
 
         String currentPushValue = pushedButton.getText().toString().trim();
@@ -46,25 +54,34 @@ public class MainActivity extends AppCompatActivity
         LCDScreen.append(currentPushValue);
 
     }
+    public void clearLCD(View view)
+    {
+        LCDScreen.setText("");
+    }
     public void evaluateExpression(View view)
     {
         String expr = LCDScreen.getText().toString().trim();
+        logText.setText(expr);
         Evaluator evaluator = new Evaluator();
 
         try
         {
             String result = evaluator.evaluate(expr);
             Double dResult = Double.parseDouble(result);
+            logText.setText(dResult.toString());
             long lResult = 0l;
 
             if(dResult.equals(Math.ceil(dResult)))
             {
-                String str = dResult.toString();
-                lResult = Long.parseLong(str);
-                result = String.valueOf(lResult);
+                int res = (int)Math.round(dResult);
+                LCDScreen.setText(String.valueOf(res));
 
             }
-            LCDScreen.setText(result);
+            else
+            {
+                LCDScreen.setText(result);
+            }
+
         }
         catch (EvaluationException e)
         {

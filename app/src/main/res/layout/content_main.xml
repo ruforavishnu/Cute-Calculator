@@ -131,6 +131,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:maxLines="1"
+        android:maxLength="12"
         android:textSize="50sp"/>
 
     <Button
@@ -182,5 +184,25 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="pushNumber"/>
+
+    <Button
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:text="C"
+        android:id="@+id/button17"
+        android:onClick="clearLCD"
+        android:layout_below="@+id/button16"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/logText"
+        android:layout_below="@+id/button8"
+        android:layout_toLeftOf="@+id/button17"
+        android:layout_toStartOf="@+id/button17"/>
 
 </RelativeLayout>
